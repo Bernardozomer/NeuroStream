@@ -1,15 +1,5 @@
-<div align="center">
-  <img src="https://raw.githubusercontent.com/MikhailKravets/DataFlow/master/logo.png"><br><br>
-</div>
-
-[![Build status](https://travis-ci.org/MikhailKravets/NeuroFlow.svg?branch=master)](https://travis-ci.org/MikhailKravets/NeuroFlow)
-[![codecov](https://codecov.io/gh/MikhailKravets/NeuroFlow/branch/master/graph/badge.svg)](https://codecov.io/gh/MikhailKravets/NeuroFlow)
-[![crates](https://img.shields.io/crates/v/neuroflow.svg)](https://crates.io/crates/neuroflow)
-
-NeuroFlow is fast neural networks (deep learning) Rust crate.
+NeuroStream is a parallel fork of the fast neural networks (deep learning) Rust crate, NeuroFlow.
 It relies on three pillars: speed, reliability, and speed again.
-
-> Hello, everyone! Work on the crate is currently suspended because I am a little busy to do it :( Thanks you all
 
 ## How to use
 
@@ -29,29 +19,29 @@ fn main(){
         And, such as our function returns single value, it is reasonable to have 1 neuron in the output layer.
     */
     let mut nn = FeedForward::new(&[1, 7, 8, 8, 7, 1]);
-    
+
     /*
         Define DataSet.
-        
+
         DataSet is the Type that significantly simplifies work with neural network.
         Majority of its functionality is still under development :(
     */
     let mut data: DataSet = DataSet::new();
     let mut i = -3.0;
-    
+
     // Push the data to DataSet (method push accepts two slices: input data and expected output)
     while i <= 2.5 {
         data.push(&[i], &[0.5*(i.exp().sin()) - (-i.exp()).cos()]);
         i += 0.05;
     }
-    
+
     // Here, we set necessary parameters and train neural network by our DataSet with 50 000 iterations
     nn.activation(Tanh)
         .learning_rate(0.01)
         .train(&data, 50_000);
 
     let mut res;
-    
+
     // Let's check the result
     i = 0.0;
     while i <= 0.3{
@@ -78,16 +68,16 @@ neural networks from files.
 
     /*
         In order to save neural network into file call function save from neuroflow::io module.
-        
+
         First argument is link on the saving neural network;
-        Second argument is path to the file. 
+        Second argument is path to the file.
     */
     neuroflow::io::save(&mut nn, "test.flow").unwrap();
-    
+
     /*
         After we have saved the neural network to the file we can restore it by calling
         of load function from neuroflow::io module.
-        
+
         We must specify the type of new_nn variable.
         The only argument of load function is the path to file containing
         the neural network
@@ -125,10 +115,10 @@ fn main(){
         1 neuron in output layer
     */
     let mut nn = FeedForward::new(&[2, 2, 1]);
-    
+
     // Here we load data for XOR from the file `TerribleTom.csv`
     let mut data = DataSet::from_csv("TerribleTom.csv");
-    
+
     // Set parameters and train the network
     nn.activation(Tanh)
         .learning_rate(0.1)
@@ -147,26 +137,11 @@ fn main(){
 Expected output
 ```
 for [0.000, 0.000], [0.000] -> [0.000]
-for [1.000, 0.000], [1.000] -> [1.000]
 for [0.000, 1.000], [1.000] -> [1.000]
+for [1.000, 0.000], [1.000] -> [1.000]
 for [1.000, 1.000], [0.000] -> [0.000]
-```
-
-## Installation
-Insert into your project's cargo.toml block next line
-```toml
-[dependencies]
-neuroflow = "0.1.3"
-```
-
-Then in project root file
-```rust
-extern crate neuroflow;
 ```
 
 ## License
 MIT License
-
-### Attribution
-The origami bird from logo is made by [Freepik](https://www.freepik.com/)
 

@@ -1,22 +1,19 @@
 [package]
-name = "neuroflow"
-version = "0.1.3"
+name = "neurostream"
+version = "0.1.0"
 
-description = "The neural network library implemented in Rust"
-repository = "https://github.com/MikhailKravets/NeuroFlow"
+description = "The neural network library implemented in Rust, now running in parallel"
+repository = "https://github.com/Bernardozomer/NeuroStream"
 readme = "README.md"
-keywords = ["machine-learning", "neural-networks", "data-learning", "math", "backpropagation"]
+keywords = ["machine-learning", "neural-networks", "data-learning", "math", "backpropagation", "parallelism", "stream-processing"]
 categories = ["algorithms", "science"]
 license = "MIT"
 
-authors = ["Mikhail Kravets <michkravets@gmail.com>"]
+authors = ["Mikhail Kravets <michkravets@gmail.com>", "Bernardo Zomer <bernardobarzottoz@gmail.com>"]
 exclude = ["examples/*", "tests/*"]
 
-[badges]
-travis-ci = { repository = "MikhailKravets/NeuroFlow", branch = "master" }
-codecov = { repository = "MikhailKravets/NeuroFlow", branch = "master", service = "github" }
-
 [dependencies]
+rust-spp = { git = "https://github.com/GMAP/rust-ssp" }
 rand = "0.3"
 serde = "1.0"
 serde_derive = "1.0"
